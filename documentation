@@ -1,0 +1,123 @@
+Aplikasi Pencatatan Keluhan Dosen Mahasiswa
+dirancang untuk memudahkan pelaporan terkait fasilitas dan akademik
+
+--Role 
+1. Adminsitrator
+2. Mahasiswa
+3. Dosen
+
+
+- akun untuk dosen akan dibuatkan menggunakan NIDN, Email, Nama, dan Password
+- akun untuk Admin akan dibuatkan menggunakan NomorAdmin, Email, Nama, dan Password
+- pendaftaran akun untuk mahasiswa (nim, nama, email, password)
+- Login untuk mahasiswa dan dosen menggunakan mahasiswa(nim, password), dosen(nidn, password)
+
+FITUR UTAMA :
+1. Admin
+- Login menggunakan NomorAdmin dan password
+- dapat melihat semua jenis laporan tanpa terkecuali
+- dapat merubah status dari laporan (pending, on progress, done)
+- jika status "Done" lebih dari 1 hari/24 jam maka akan otomatis masuk ke dalam history
+- dapat melihat seluruh data pelapor baik mahasiswa ataupun dosen
+
+2. Mahasiswa
+- Dapat registrasi manual 
+- login menggunakan NIM dan password
+- dapat membuat laporan terkait akademik atau fasilitas
+- mahasiswa tidak dapat melihat laporan dari pelapor lain
+- terdapat fitur buat laporan dengan form pengisian (jenis laporan, nama lapoan, deskripsi laporan, dan dokumentasi bila ada)
+- mahasiswa dapat memantau laporan terkait, terlihat dari status (pending, On Progress, Selesai)
+
+3. Dosen
+- akun akan dibuatkan menggunakan NIDN, nama, email, dan password 
+- login menggunakan NIDN dan password
+- dapat membuat laporan terkait akademik atau fasilitas
+- dosen tidak dapat melihat laporan dari pelapor lain
+- terdapat fitur buat laporan dengan form pengisian (jenis laporan, nama lapoan, deskripsi laporan, dan dokumentasi bila ada)
+- Dosen dapat memantau laporan terkait, terlihat dari status (pending, On Progress, Selesai)
+
+DATABASE
+menggunakan mariaDb, heidisql.
+- Nama : db_report
+Tabel Database :
+- tb_mahasiswa (Berisi data mahasiswa)
+- tb_dosen (Berisi data dosen)
+- laporan (Berisi semua field untuk laporan)  
+
+BAHASA
+- PHP Native (Backend)
+- HTML, CSS, Javascript (Frontend)
+Framework
+- Bootstrap 5
+- SweetAlert2
+
+
+FOLDER :
+action :
+- berisi action/proses login serta logout mahasiswa
+- berisi proses registrasi mahasiswa
+actionmhs :
+- berisi proses pembuatan laporan
+- berisi proses penghapusan data laporan
+actiondosen
+- berisi proses pembuatan laporan
+- berisi proses penghapusan data laporan
+- proses logout dosen
+actionadmin :
+- berisi proses login dan logout admin
+- 
+
+connection :
+- berisi file untuk koneksi database dengan nama koneksi.php
+
+page_admin :
+- halaman semua jenis laporan (dapat di lihat pada sidebar halaman untuk tujuannya)
+page_dosen :
+- halaman index dan form laporan
+page_mahasiswa :
+- halaman index dan form laporan
+
+File :
+index.php berisi halaman login pertama kali (untuk mahasiswa dan dosen)
+admin.php berisi halaman login admin
+registrasimhs.php berisi halaman registrasi manual mahasiswa
+*selebihnya boleh gausah dihraukan
+
+Pengembangan
+- wawancara dengan stakeholder
+- pencatatan fitur 
+- pemilihan bahasa pemrograman
+- Frontend : Membuat dan menyesuaikan desain
+- backend : pengembangan antara program dan database
+
+STEP INSTALLASI
+1. pastikan localhost / server ON
+2. import db_report
+3. test kembali koneksi.php (pada folder connection)
+4. buka alamat localhost/ReportTi
+
+*password yang masuk ke dalam database sudah menggunakan sanitize agar menghindari sql injection, jadi tidak sembarangan input langsung ke dalam database
+akun percobaan :
+nim : 236152039
+password : $2y$10$UFwjj8UJcI0FZaVzbYpxgu2AAG68hoIaV8kMZjW6.PBbNDEcjVnXu -> bisa di ketik '123' tanpa petik
+
+--  Tugas programmer update 11 oktober 2024
+sempurnakan halaman admin (page_admin) semua page/halaman admin, 
+- Tambahkan sessien berdasdarkan id_admin
+1. pada index.php tampilkan semua data pelapor, buat fungsi untuk menghitung semua data laporan hari ini, laporan pending, laporan o progress, laporan bulan ini
+    dan tampilkan semua data pelapor disertakan TINDAKAN untuk edit berdasarkan id_laporan status (HANYA EDIT STATUS) sesuaikan dengan isi dari tipe data di dalam database (enum)
+    "Pending", "On Progress", "Done"
+2. pada page laporan hari ini tampilkan semua data pelapor
+3. pada page laporan pending, tapilkan semua data pelapor berdasarkan status "PENDING"
+4. pada page laporan on progress, tapilkan semua data pelapor berdasarkan status "on progress"
+5. pada page laporan mata kuliah, tapilkan semua data pelapor berdasarkan jenis laporan "mata kuliah"
+6. pada page laporan kesalahan teknis, tapilkan semua data pelapor berdasarkan jenis laporan "kesalahan teknis"
+7. pada page laporan kerusakan fasilitas, tapilkan semua data pelapor berdasarkan jenis laporan "kerusakan fasilitas"
+8. pada page laporan kekurangan fasilitas, tapilkan semua data pelapor berdasarkan jenis laporan "kekurangan fasilitas"
+9. pada page history, tapilkan semua data pelapor berdasarkan jenis status "Done"
+10. pada saat admin edit status menjadi "Done" maka tanggal_selesai akan ikut terupdate menjadi tanggal saat admin update status laporan
+
+
+email : reportti24@gmail.com
+pass : Kucing123
+APP PASSWORD : vhav aqun lnka qssx
