@@ -44,11 +44,7 @@ $query_bulan_ini = "select COUNT(*) AS total_bulan_ini FROM laporan WHERE MONTH(
 $result_bulan_ini = mysqli_query($koneksi, $query_bulan_ini);
 $row_bulan_ini = mysqli_fetch_assoc($result_bulan_ini);
 $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
-if ($total_bulan_ini == 0 && $total_bulan_ini == 1) {
-   $x = "tes";
-} else{
-  echo "Total Bulan ini tidak ada";
-}
+
 // $x = if ($y != 0) {
 //   mysqli_poll($x);
 //   elseif ($y == 1 / $y == 2) {
@@ -160,6 +156,7 @@ if ($total_bulan_ini == 0 && $total_bulan_ini == 1) {
     <?php
   include'admin-navbar.php';
   ?>
+
     <!-- ! Main -->
     <main class="main users chart-page" id="skip-target">
       <div class="container">
