@@ -1,44 +1,26 @@
 
-
 <?php
+include '../connection/koneksi.php';
 session_start(); // Pastikan session dimulai
 
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['noadmin'])) {
     // Jika belum login, arahkan ke halaman login
-    header("Location: ../admin.php");
+    header("Location: ../index.php");
     exit();
 }
-include '../connection/koneksi.php';
-$noadmin = $_SESSION['noadmin'];
 
-// Query untuk mengambil data laporan
-$sql = "SELECT * FROM laporan WHERE jenis_laporan = 'kerusakan fasilitas'";
-$result = mysqli_query($koneksi, $sql);
- 
-//query hitung data pending
-$querypending = "SELECT COUNT(*) AS totalpending FROM laporan WHERE status = 'pending'";
-$resultpending = mysqli_query($koneksi, $querypending); 
-$rowpending = mysqli_fetch_assoc($resultpending);
-$totalpending = $rowpending['totalpending'];
+$id_laporan = $_GET['id_laporan']; // Ambil id_laporan dari URL atau form sebelumnya
+$query = "SELECT * FROM laporan WHERE id_laporan = '$id_laporan'";
+$result = mysqli_query($koneksi, $query);
 
-// Query untuk menghitung onprogress
-$queryonprogress = "SELECT COUNT(*) AS totalprogress FROM laporan WHERE status = 'on progress'";
-$resultonprogress = mysqli_query($koneksi, $queryonprogress);
-$rowonprogress = mysqli_fetch_assoc($resultonprogress);
-$totalprogress = $rowonprogress['totalprogress'];
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+} else {
+    echo "Data laporan tidak ditemukan!";
+    exit;
+}
 
-// Query untuk menghitung laporan hari ini
-$query_hari_ini = "SELECT COUNT(*) AS total_hari_ini FROM laporan WHERE DATE(tanggal_dibuat) = CURDATE()";
-$result_hari_ini = mysqli_query($koneksi, $query_hari_ini);
-$row_hari_ini = mysqli_fetch_assoc($result_hari_ini);
-$total_hari_ini = $row_hari_ini['total_hari_ini'];
-
-// Query untuk menghitung laporan bulan ini
-$query_bulan_ini = "SELECT COUNT(*) AS total_bulan_ini FROM laporan WHERE MONTH(tanggal_dibuat) = MONTH(CURDATE()) AND YEAR(tanggal_dibuat) = YEAR(CURDATE())";
-$result_bulan_ini = mysqli_query($koneksi, $query_bulan_ini);
-$row_bulan_ini = mysqli_fetch_assoc($result_bulan_ini);
-$total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
 ?>
 
 <!DOCTYPE html>
@@ -51,12 +33,10 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
   <title>Report Page Teknologi Informasi</title>
   <!-- Favicon -->
   <!-- <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon"> -->
-  <link rel="shortcut icon" href="../img/Logo_Polnes_2015-sekarang.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./img/Logo_Polnes_2015-sekarang.png" type="image/x-icon">
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="../css/style.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 
 <body>
@@ -68,7 +48,7 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
   <aside class="sidebar">
     <div class="sidebar-start">
         <div class="sidebar-head">
-            <a href="" class="logo-wrapper" title="Home">
+            <a href="/" class="logo-wrapper" title="Home">
                 <span class="sr-only">Home</span>
                 <span class="icon logo" aria-hidden="true"></span>
                 <div class="logo-text">
@@ -85,10 +65,10 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
         <div class="sidebar-body">
             <ul class="sidebar-body-menu">
                 <li>
-                    <a class="active" href="./index.php"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                    <a class="active" href="../page_admin"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
                 </li>
                 <li>
-                    <a class="show-cat-btn" href="./index.php">
+                    <a class="show-cat-btn" href="##">
                         <span class="icon document" aria-hidden="true"></span>Laporan
                         <span class="category__btn transparent-btn" title="Open list">
                             <span class="sr-only">Open list</span>
@@ -106,21 +86,6 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
                             <a href="./admin-laporan-kerusakan-fasilitas.php">Laporan Kerusakan Fasilitas</a>
                             <a href="./admin-laporan-kekurangan-fasilitas.php">Laporan Kekurangan Fasilitas</a>
                             <a href="./admin-laporan-history.php">History Laporan</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="./index.php">
-                        <span class="icon document" aria-hidden="true"></span>Registrasi User
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="../registrasimhs.php">Registrasi Mahasiswa</a>
-                            <a href="../registrasidosen.php">Registrasi Dosen</a>
                         </li>
                     </ul>
                 </li>
@@ -169,7 +134,15 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
           </span>
         </button>
         <ul class="users-item-dropdown nav-user-dropdown dropdown">
-          <li><a class="danger" href="../actionadmin/admin-proses-logout.php">
+          <li><a href="##">
+              <i data-feather="user" aria-hidden="true"></i>
+              <span>Profile</span>
+            </a></li>
+          <li><a href="##">
+              <i data-feather="settings" aria-hidden="true"></i>
+              <span>Account settings</span>
+            </a></li>
+          <li><a class="danger" href="../actiondosen/dosen-proses-logout.php">
               <i data-feather="log-out" aria-hidden="true"></i>
               <span>Log out</span>
             </a></li>
@@ -180,77 +153,77 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
 </nav>
     <!-- ! Main -->
     <main class="main users chart-page" id="skip-target">
+        
       <div class="container">
-        <h2 class="main-title">Halo <?php echo htmlspecialchars($_SESSION['namadmin']); ?> !</h2>
-        <div class="row stat-cards">
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-              <div class="stat-cards-icon primary">
-                <i data-feather="bar-chart-2" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $total_hari_ini; ?></p>
-                <p class="stat-cards-info__title">Laporan Hari Ini</p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-              <div class="stat-cards-icon primary">
-                <i data-feather="bar-chart-2" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $totalpending;?></p>
-                <p class="stat-cards-info__title">Laporan Pending</p>
-                <!-- <p class="stat-cards-info__progress">
-                  <span class="stat-cards-info__profit success">
-                    <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                  </span>
-                  Last month
-                </p> -->
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-              <div class="stat-cards-icon primary">
-                <i data-feather="bar-chart-2" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $totalprogress;?></p>
-                <p class="stat-cards-info__title">Laporan On Progress</p>
-                <!-- <p class="stat-cards-info__progress">
-                  <span class="stat-cards-info__profit success">
-                    <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                  </span>
-                  Last month
-                </p> -->
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-              <div class="stat-cards-icon primary">
-                <i data-feather="bar-chart-2" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $total_bulan_ini; ?></p>
-                <p class="stat-cards-info__title">Laporan Bulan Ini</p>
-                <!-- <p class="stat-cards-info__progress">
-                  <span class="stat-cards-info__profit success">
-                    <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                  </span>
-                  Last month
-                </p> -->
-              </div>
-            </article>
-          </div>
-      </div>
-        <!-- Tampil data -->
-        <?php
-        include 'admin-tampil-data.php';
-        ?>
-        <!-- Tampil data -->
+      <h2 class="main-title">Edit Status Laporan</h2>
+        <form class="sign-up-form form" action="../actionadmin/admin-proses-edit-laporan.php" method="POST">
+            
+            <input type="hidden" name="id_laporan" value="<?php echo htmlspecialchars($row['id_laporan']); ?>">
+
+            <label class="form-label-wrapper">
+                <p class="form-label">Jenis Laporan</p>
+                <input class="form-input" type="text" name="jenis_laporan" value="<?php echo htmlspecialchars($row['jenis_laporan']); ?>" readonly>
+            </label>
+
+            <label class="form-label-wrapper">
+                <p class="form-label">Nama Laporan</p>
+                <input class="form-input" type="text" name="nama_laporan" value="<?php echo htmlspecialchars($row['nama_laporan']); ?>" readonly>
+            </label>
+
+            <label class="form-label-wrapper">
+                <p class="form-label">Deskripsi Laporan</p>
+                <input class="form-input" type="text" name="deskripsi_laporan" value="<?php echo htmlspecialchars($row['deskripsi_laporan']); ?>" readonly>
+            </label>
+
+            <label class="form-label-wrapper">
+                <p class="form-label">Dokumentasi</p>
+                <?php
+                  $file_path = '../doc_laporan/' . htmlspecialchars($row['dokumentasi']);
+
+                $dokumentasi = htmlspecialchars($row['dokumentasi']); 
+                $file_extension = pathinfo($dokumentasi, PATHINFO_EXTENSION);
+
+                if (in_array($file_extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    // Jika file adalah gambar, tampilkan preview
+                    // echo '<img src="../doc_laporan/' . $dokumentasi . '" alt="Preview Dokumentasi" style="width: 100px; height: 100px;">';
+                    echo "<td><a href='" . $file_path . "' target='_blank'><img src='" . $file_path . "' alt='Gambar Dokumentasi' style='width: 150px; height: 150px; cursor: pointer;'></a></td>";
+
+                }
+
+                ?>
+                <!-- Tampilkan link untuk melihat dokumen secara penuh -->
+                 
+                <!-- <td><a href='" . $file_path . "' target='_blank'><img src='" . $file_path . "' alt='Gambar Dokumentasi' style='width: 50px; height: 50px; cursor: pointer;'></a></td>"; -->
+
+                <!-- <a href="../doc_laporan/<?php echo $dokumentasi; ?>" target="_blank">Lihat Dokumentasi</a> -->
+            </label>
+
+
+            <label class="form-label-wrapper">
+                <p class="form-label">NIM / NIDN</p>
+                <input class="form-input" type="text" value="<?php echo htmlspecialchars($row['nim'] ?: $row['nidn']); ?>" readonly>
+            </label>
+            <label class="form-label-wrapper">
+                <p class="form-label">Waktu Dibuat</p>
+                <input class="form-input" type="text" value="<?php echo isset($row['tanggal_dibuat']) ? htmlspecialchars($row['tanggal_dibuat']) : 'Belum ada data'; ?>" readonly>
+            </label>
+            <label class="form-label-wrapper">
+                <p class="form-label">Waktu Selesai</p>
+                <input class="form-input" type="text" value="<?php echo isset($row['tanggal_selesai']) ? htmlspecialchars($row['tanggal_selesai']) : 'Belum ada '; ?>" readonly>
+            </label>
+
+
+
+            <label class="form-label-wrapper">
+                <p class="form-label" > Status Laporan</p>
+                <select class="form-input" name="status" required readonly >
+                    <option ><?php echo isset($row['status']) ? htmlspecialchars($row['status']) : 'Belum ada '; ?></option>
+                </select>
+            </label>
+
+            <!-- <button class="form-btn primary-default-btn transparent-btn" type="submit">Simpan Perubahan</button> -->
+        </form>
+
 
       </div>
     </main>
@@ -296,21 +269,6 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
     updateClock();
 </script>
 <!-- script jam -->
-<script>
-  // Cek jika ada parameter query string
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('message')) {
-    const message = urlParams.get('message');
-    if (message === 'registrasi_berhasil') {
-      Swal.fire({
-        icon: 'success',
-        title: 'Registrasi Berhasil!',
-        text: 'Silahkan login menggunakan NIM dan Password Anda.',
-        confirmButtonText: 'OK'
-      });
-    }
-  }
-</script>
 
 <!-- Chart library -->
 <script src="../plugins/chart.min.js"></script>
