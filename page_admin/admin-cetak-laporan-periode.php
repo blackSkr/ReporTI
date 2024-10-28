@@ -9,7 +9,6 @@ if (!isset($_SESSION['noadmin'])) {
     header("Location: ../admin.php");
     exit();
 }
-
 // Koneksi ke database
 include '../connection/koneksi.php';
 
