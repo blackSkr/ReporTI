@@ -104,7 +104,7 @@ if (mysqli_num_rows($result) > 0) {
 </aside>
   <div class="main-wrapper">
     <!-- ! Main nav -->
-    <?php
+      <?php
   include'admin-navbar.php';
   ?>
     <!-- ! Main -->
