@@ -254,11 +254,11 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
                       </label>
                     </th>
                     <th>Nama Laporan</th>
-                    <th>Deskripsi Laporan</th>
+                    <!-- <th>Deskripsi Laporan</th> -->
                     <th>Dokumentasi </th>
                     <th>Pembuat </th>
-                    <th>NIM / NIDN</th>
-                    <th>Waktu Dibuat</th>
+                    <!-- <th>NIM / NIDN</th> -->
+                    <!-- <th>Waktu Dibuat</th> -->
                     <th>Waktu Selesai</th>
                     <th>Status</th>
                     <th>Tindakan</th>
@@ -273,7 +273,7 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($row['jenis_laporan']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['nama_laporan']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['deskripsi_laporan']) . "</td>";
+                        // echo "<td>" . htmlspecialchars($row['deskripsi_laporan']) . "</td>";
                         $file_path = 'doc_laporan/' . htmlspecialchars($row['dokumentasi']);
                         // echo '<td><img src="doc_laporan/' . htmlspecialchars($row['dokumentasi']) . '" alt="Dokumentasi Laporan" style="width: 50px; height: 50px;"></td>';
                         // echo "<td>" . htmlspecialchars($row['dokumentasi']) . "</td>";
@@ -281,8 +281,8 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
 
                         echo "<td>" . htmlspecialchars($row['tipe_pengguna']) . "</td>";
                         // Cek apakah NIM tersedia, jika tidak tampilkan NIDN
-                        echo "<td>" . (!empty($row['nim']) ? htmlspecialchars($row['nim']) : htmlspecialchars($row['nidn'])) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['tanggal_dibuat']) . "</td>"; // Ganti dengan kolom waktu yang sesuai
+                        // echo "<td>" . (!empty($row['nim']) ? htmlspecialchars($row['nim']) : htmlspecialchars($row['nidn'])) . "</td>";
+                        // echo "<td>" . htmlspecialchars($row['tanggal_dibuat']) . "</td>"; // Ganti dengan kolom waktu yang sesuai
                         // Cek apakah kolom tanggal_selesai NULL atau tidak, jika NULL tampilkan default "Belum selesai"
                         echo "<td>" . (!empty($row['tanggal_selesai']) ? htmlspecialchars($row['tanggal_selesai']) : "Belum selesai") . "</td>";
 
@@ -297,6 +297,7 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
                                     <ul class='users-item-dropdown dropdown'>
                                         <li><a href='admin-edit-laporan.php?id_laporan=" . $row['id_laporan'] . "' onclick='return confirm(\"Apakah Anda yakin ingin edit laporan ini?\")'>Edit</a></li>
                                         <li><a href='admin-cetak-pdf-laporan.php?id_laporan=" . $row['id_laporan'] . "' onclick='return confirm(\"Apakah Anda yakin ingin cetak laporan ini?\")'>Cetak</a></li>
+                                        <li><a href='admin-detail-laporan.php?id_laporan=" . $row['id_laporan'] . "' onclick='return confirm(\"Cek detail laporan ini?\")'>Detail</a></li>
                                     </ul>
                                 </span>
                               </td>";
