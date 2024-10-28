@@ -25,31 +25,36 @@ $semesters = [];
 
 // Loop untuk memproses hasil query
 while ($row = mysqli_fetch_assoc($result)) {
-    $start_date = new DateTime($row['tanggal_dibuat']);
-    $end_date = new DateTime($row['tanggal_selesai']);
+    // Cek apakah tanggal_dibuat dan tanggal_selesai tidak null
+    $start_date = isset($row['tanggal_dibuat']) ? new DateTime($row['tanggal_dibuat']) : null;
+    $end_date = isset($row['tanggal_selesai']) ? new DateTime($row['tanggal_selesai']) : null;
 
-    // Loop untuk menghasilkan semester per tahun, berdasarkan tanggal_dibuat dan tanggal_selesai
-    for ($year = $start_date->format('Y'); $year <= $end_date->format('Y'); $year++) {
-        // Semester 1: Januari - Juni
-        $semester_1 = [
-            'semester' => "Semester 1 $year",
-            'value' => "Semester 1 $year"
-        ];
-        // Semester 2: Juli - Desember
-        $semester_2 = [
-            'semester' => "Semester 2 $year",
-            'value' => "Semester 2 $year"
-        ];
+    if ($start_date && $end_date) {
+        // Proses semester jika kedua tanggal tersedia
+        for ($year = $start_date->format('Y'); $year <= $end_date->format('Y'); $year++) {
+            // Semester 1: Januari - Juni
+            $semester_1 = [
+                'semester' => "Semester 1 $year",
+                'value' => "Semester 1 $year"
+            ];
+            // Semester 2: Juli - Desember
+            $semester_2 = [
+                'semester' => "Semester 2 $year",
+                'value' => "Semester 2 $year"
+            ];
 
-        // Menambahkan semester ke dalam array
-        if (!in_array($semester_1, $semesters)) {
-            $semesters[] = $semester_1;
-        }
-        if (!in_array($semester_2, $semesters)) {
-            $semesters[] = $semester_2;
+            // Menambahkan semester ke dalam array
+            if (!in_array($semester_1, $semesters)) {
+                $semesters[] = $semester_1;
+            }
+            if (!in_array($semester_2, $semesters)) {
+                $semesters[] = $semester_2;
+            }
         }
     }
 }
+
+
 
 // Query untuk mendapatkan tahun yang unik dari kolom tanggal_dibuat
 $query = "SELECT DISTINCT YEAR(tanggal_dibuat) AS tahun FROM laporan ORDER BY tahun DESC";
@@ -227,6 +232,7 @@ if ($result) {
 
                       <button type="submit" class="btn btn-primary">Cetak Laporan</button>
                   </form>
+                </div>
               </div>
             </div>
         </div>
