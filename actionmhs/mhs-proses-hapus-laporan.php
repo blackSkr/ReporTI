@@ -17,7 +17,7 @@ if (isset($_GET['id_laporan'])) {
     // Menjalankan query
     if (mysqli_stmt_execute($stmt)) {
         // Jika berhasil, redirect ke halaman laporan dengan parameter notifikasi
-        header("Location: ../page_mahasiswa/index.php?message=hapus_berhasil");
+        header("Location: ../page_mahasiswa/index.php");
         exit();
     } else {
         // Jika gagal, menampilkan pesan kesalahan
@@ -28,7 +28,7 @@ if (isset($_GET['id_laporan'])) {
     mysqli_stmt_close($stmt);
 } else {
     // Jika tidak ada ID laporan, redirect atau tampilkan pesan kesalahan
-    header("Location: ../page_mahasiswa/index.php?message=id_tidak_ditemukan");
+    header("Location: ../page_mahasiswa/index.php");
     exit();
 }
 

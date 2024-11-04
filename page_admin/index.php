@@ -13,7 +13,7 @@ include '../connection/koneksi.php';
 $noadmin = $_SESSION['noadmin'];
 
 // Query untuk mengambil data laporan
-$sql = "SELECT * FROM laporan WHERE status = 'pending' || status = 'on progress'";
+$sql = "SELECT * FROM laporan WHERE status = 'pending' || status = 'on progress' ORDER BY status ASC";
 $result = mysqli_query($koneksi, $sql);
  
 //query hitung data pending
@@ -284,7 +284,21 @@ window.onclick = function(event) {
   }
 }
 </script>
-
+<script>
+  // Cek jika ada parameter query string
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'registrasi_berhasil') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Registrasi Berhasil!',
+        // text: 'Silahkan login menggunakan NIM dan Password Anda.',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+</script>
 
 <!-- script gambar 100% -->
 <script>
