@@ -41,14 +41,16 @@ $result = $stmt->get_result();
 
 $html = '<h1>Laporan Semester: ' . ($semester == '1' ? '1' : '2') . ' Tahun ' . $tahun . '</h1>';
 $html .= '<table border="1" cellpadding="10" cellspacing="0">';
-$html .= '<tr><th>ID Laporan</th><th>Nama Laporan</th><th>Tanggal Dibuat</th><th>Tanggal Selesai</th></tr>';
+$html .= '<tr><th>ID Laporan</th><th>Nama Laporan</th><th>Dokumentasi</th><th>Tanggal Dibuat</th><th>Tanggal Selesai</th></tr>';
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $dokumentasiLink = "<a href='{$row['dokumentasi']}' target='_blank'>Lihat Dokumentasi</a>";
         $html .= '<tr>';
         $html .= '<td>' . $row['id_laporan'] . '</td>';
         $html .= '<td>' . $row['nama_laporan'] . '</td>';
         $html .= '<td>' . $row['tanggal_dibuat'] . '</td>';
+        $html .= '<td>' . $row[$dokumentasiLink] . '</td>';
         $html .= '<td>' . $row['tanggal_selesai'] . '</td>';
         $html .= '</tr>';
     }
