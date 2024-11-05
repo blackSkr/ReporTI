@@ -32,6 +32,8 @@ if (isset($_POST['Login'])) {
             // Login berhasil, simpan data mahasiswa dalam session
             $_SESSION['nim'] = $row_mahasiswa['nim'];
             $_SESSION['user_mhs'] = $row_mahasiswa['nama'];
+            $_SESSION['email_mhs'] = $row_mahasiswa['email'];
+            $_SESSION['password'] = $row_mahasiswa['password'];
             $_SESSION['user_type'] = 'mahasiswa';
 
             // Arahkan ke halaman mahasiswa
@@ -39,7 +41,7 @@ if (isset($_POST['Login'])) {
             exit();
         } else {
             // Password salah
-            echo "<script>alert('Login gagal: Password salah!'); window.location.href='../index.php';</script>";
+            header("Location: ../index.php?message=gagal");
         }
     } 
     // Mengecek apakah ada data di tabel dosen
@@ -52,6 +54,7 @@ if (isset($_POST['Login'])) {
             // Login berhasil, simpan data dosen dalam session
             $_SESSION['nidn'] = $row_dosen['nidn'];
             $_SESSION['user_dosen'] = $row_dosen['nama'];
+            $_SESSION['email_dosen'] = $row_dosen['email'];
             $_SESSION['user_type'] = 'dosen';
 
             // Arahkan ke halaman dosen
@@ -59,11 +62,11 @@ if (isset($_POST['Login'])) {
             exit();
         } else {
             // Password salah
-            echo "<script>alert('Login gagal: Password salah!'); window.location.href='../index.php';</script>";
+            header("Location: ../index.php?message=gagal");
         }
     } else {
         // Jika NIM atau NIDN tidak ditemukan
-        echo "<script>alert('Login gagal: Username tidak ditemukan!'); window.location.href='../index.php';</script>";
+        header("Location: ../index.php?message=gagal");
     }
 
     // Menutup statement

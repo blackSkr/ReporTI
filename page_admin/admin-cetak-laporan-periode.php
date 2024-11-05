@@ -25,7 +25,7 @@ $result = $stmt->get_result();
 
 $html = '<h1>Laporan Periode: ' . $start_date . ' sampai ' . $end_date . '</h1>';
 $html .= '<table border="1" cellpadding="10" cellspacing="0">';
-$html .= '<tr><th>Nomor Laporan</th><th>Jenis Laporan</th><th>Tanggal Dibuat</th><th>Tanggal Selesai</th><th>Dokumentasi</th><th>Status</th></tr>';
+$html .= '<tr><th>Nomor Laporan</th><th>Jenis Laporan</th><th>Tanggal Dibuat</th><th>Tanggal Selesai</th><th>Status</th></tr>';
 
 while ($row = $result->fetch_assoc()) {
     $dokumentasiLink = "<a href='{$row['dokumentasi']}' target='_blank'>Lihat Dokumentasi</a>";
@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
     $html .= '<td>' . $row['jenis_laporan'] . '</td>';
     $html .= '<td>' . $row['tanggal_dibuat'] . '</td>';
     $html .= '<td>' . $row['tanggal_selesai'] . '</td>';
-    $html .= '<td>' . $dokumentasiLink . '</td>';
+    // $html .= '<td>' . $dokumentasiLink . '</td>';
     $html .= '<td>' . $row['status'] . '</td>';
     $html .= '</tr>';
 }

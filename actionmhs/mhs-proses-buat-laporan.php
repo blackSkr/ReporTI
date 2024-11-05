@@ -34,12 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if (mysqli_query($koneksi, $sql)) {
                     // Redirect ke halaman laporan mahasiswa dengan pesan sukses
-                    echo "<script>
-                        alert('Laporan berhasil dibuat');
-                        window.location.href = '../page_mahasiswa/mahasiswa_buat_laporan.php';
-                    </script>";
+                    header("Location: ../page_mahasiswa/mahasiswa_buat_laporan.php?message=berhasil");
                 } else {
-                    echo "Error: " . mysqli_error($koneksi);
+                    header("Location: ../page_mahasiswa/mahasiswa_buat_laporan.php?message=gagal");
                 }
             } else {
                 echo "Error: Gagal mengupload file.";

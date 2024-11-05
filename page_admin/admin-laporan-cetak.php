@@ -236,6 +236,7 @@ if ($result) {
               </div>
             </div>
         </div>
+        
     </div>
     <!-- ! Main -->
 
@@ -322,7 +323,26 @@ if ($result) {
         dateFormat: "Y-m-d",
     });
 </script>
-
+<!-- script tahun kosong -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+<script>
+  // Cek jika ada parameter query string
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'tahunkosong') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Silahkan Pilih Tahunnya Ya!',
+        // text: 'Silahkan login menggunakan NIM dan Password Anda.',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.location.search = '';
+        // location.reload();  
+      });
+    }
+  }
+</script>
 <!-- flatpcik bulan -->
 <!-- script jam -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

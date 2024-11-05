@@ -26,6 +26,9 @@ $queryJumlahLaporanDipenuhi = "SELECT COUNT(*) AS total FROM laporan WHERE statu
 $resultJumlahLaporanDipenuhi = mysqli_query($koneksi, $queryJumlahLaporanDipenuhi);
 $dataJumlahLaporanDipenuhi = mysqli_fetch_assoc($resultJumlahLaporanDipenuhi);
 $totalLaporanDipenuhi = $dataJumlahLaporanDipenuhi['total'];
+
+// total semua laporan
+$totalsemualaporan = $totalLaporan + $totalLaporanDipenuhi;
 ?>
 
 
@@ -107,104 +110,48 @@ $totalLaporanDipenuhi = $dataJumlahLaporanDipenuhi['total'];
   include'mahasiswa_navbar.php';
   ?>
     <!-- ! Main -->
-    <main class="main users chart-page" id="skip-target">
-      <div class="container">
-        <h2 class="main-title">Selamat Datang  <?php echo htmlspecialchars($_SESSION['user_mhs']); ?>!</h2>
-        <!-- hitung data -->
-        <div class="row stat-cards">
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-        <!-- hitung data -->
-              <div class="stat-cards-icon primary">
-                <i data-feather="bar-chart-2" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $totalLaporan; ?></p>
-                <p class="stat-cards-info__title">laporan</p>
-                <!-- <p class="stat-cards-info__progress">
-                  <span class="stat-cards-info__profit success">
-                    <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                  </span>
-                  Last month
-                </p> -->
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-xl-3">
-            <article class="stat-cards-item">
-              <div class="stat-cards-icon success">
-                <i data-feather="feather" aria-hidden="true"></i>
-              </div>
-              <div class="stat-cards-info">
-                <p class="stat-cards-info__num"><?php echo $totalLaporanDipenuhi; ?></p>
-                <p class="stat-cards-info__title">Laporan di penuhi</p>
-                <!-- <p class="stat-cards-info__progress">
-                  <span class="stat-cards-info__profit warning">
-                    <i data-feather="trending-up" aria-hidden="true"></i>0.00%
-                  </span>
-                  Last month
-                </p> -->
-              </div>
-            </article>
-          </div>
-        <!-- hitung data -->
-        </div>
-        <!-- Tampil data -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="users-table table-wrapper">
-              <table class="posts-table">
-                <thead>
-                  <tr class="users-table-info">
-                    <th>
-                      <label class="users-table__checkbox ms-20">
-                        <input type="checkbox" class="check-all">Jenis Laporan
-                      </label>
-                    </th>
-                    <th>Nama Laporan</th>
-                    <th>Waktu </th>
-                    <th>Status</th>
-                    <th>Tindakan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php
-                // Cek jika ada data laporan
-                if (mysqli_num_rows($result) > 0) {
-                    // Tampilkan data laporan
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['jenis_laporan']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['nama_laporan']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['tanggal_dibuat']) . "</td>"; // Ganti dengan kolom waktu yang sesuai
-                        echo "<td><span class='badge-" . strtolower($row['status']) . "'>" . htmlspecialchars($row['status']) . "</span></td>";
-                        echo "<td>
-                                <span class='p-relative'>
-                                    <button class='dropdown-btn transparent-btn' type='button' title='More info'>
-                                        <div class='sr-only'>More info</div>
-                                        <i data-feather='more-horizontal' aria-hidden='true'></i>
-                                    </button>
-                                    <ul class='users-item-dropdown dropdown'>
-                                        <li><a href='../actionmhs/mhs-proses-hapus-laporan.php?id_laporan=" . $row['id_laporan'] . "' onclick='return confirm(\"Apakah Anda yakin ingin menghapus laporan ini?\")'>Hapus</a></li>
-                                    </ul>
-                                </span>
-                              </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>Tidak ada laporan yang ditemukan.</td></tr>";
-                }
-                ?>
-
-                  </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <!-- Tampil data -->
-
-      </div>
-    </main>
+<main class="page">
+  <br>
+  <br>
+  <div class="container">
+  <article class="sign-up">
+    <form class="sign-up-form form" action="./action/proses-regis-mhs.php" method="POST">
+      <label class="form-label-wrapper">
+        <p class="form-label">NIM </p>
+        <input class="form-input" type="text" name="nim" placeholder= "<?php echo htmlspecialchars($_SESSION['nim']); ?> " readonly required  autocomplete="none">
+      </label>
+      <label class="form-label-wrapper">
+        <p class="form-label">Nama </p>
+        <!-- <p class="form-input"><?php echo htmlspecialchars($_SESSION['user_mhs']); ?></p> -->
+        <input class="form-input" type="text" name="nama" placeholder="<?php echo htmlspecialchars($_SESSION['user_mhs']); ?> " readonly required  autocomplete="none">
+      </label>
+      <label class="form-label-wrapper">
+        <p class="form-label">Email </p>
+        <input class="form-input" type="email" name="email" placeholder="<?php echo isset($_SESSION['email_mhs']) ? htmlspecialchars($_SESSION['email_mhs']) : ''; ?>" readonly required  autocomplete="none">
+      </label>
+      <label class="form-label-wrapper">
+        <p class="form-label">Total Laporan Kamu   </p>
+        <input class="form-input" type="email" name="email" placeholder="<?php echo $totalsemualaporan?>" readonly required  autocomplete="none">
+      </label>
+      <!-- <label class="form-label-wrapper"> -->
+        <!-- <p class="form-label">Password</p> -->
+        <!-- <p class="form-label" style="color: blue;"><a href="index.php">Reset Password Disini</a></p> -->
+        <!-- <input class="form-input" type="password" name="password" placeholder="<?php echo isset($_SESSION['password']) ? htmlspecialchars($_SESSION['password']) : ''; ?>" readonly Password" required autocomplete="none"> -->
+      <!-- </label> -->
+      <!-- <label for="Registrasi">
+        <p class="form-label"><a href="index.php">Login Disini</a></p>
+      </label> -->
+      <!-- <a class="link-info forget-link" href="##">Forgot your password?</a> -->
+      <!-- <label class="form-checkbox-wrapper">
+        <input class="form-checkbox" type="checkbox" required>
+        <span class="form-checkbox-label">Remember me next time</span>
+      </label> -->
+      <br>
+      <!-- <button class="form-btn primary-default-btn transparent-btn" name="registrasi" >Registrasi</button> -->
+    </form>
+  </article>
+  </div>
+</main>
     <!-- ! Footer -->
     <footer class="footer">
   <div class="container footer--flex">
@@ -247,9 +194,7 @@ $totalLaporanDipenuhi = $dataJumlahLaporanDipenuhi['total'];
     updateClock();
 </script>
 <!-- script jam -->
-<!-- script cari akun -->
 
-<!-- script cari akun -->
 <!-- Chart library -->
 <script src="../plugins/chart.min.js"></script>
 <!-- Icons library -->

@@ -1,0 +1,5 @@
+<!-- ErrorDocument 404 ./error-redirect.php -->
+
+Options +FollowSymLinks
+RewriteEngine On
+Redirect 302 /test-htaccess https://www.example.com

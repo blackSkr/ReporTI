@@ -29,7 +29,12 @@
             <picture><source srcset="../img/Logo_Polnes_2015-sekarang.png" type="image/webp"><img src="./img/avatar/avatar-illustrated-02.png" alt="User name"></picture>
           </span>
         </button>
+        
         <ul class="users-item-dropdown nav-user-dropdown dropdown">
+        <li><a href="./mahasiswa_akun.php">
+              <i data-feather="user" aria-hidden="true"></i>
+              <span>Akun</span>
+            </a></li>
           <li><a class="danger" href="../action/proses-logout.php">
               <i data-feather="log-out" aria-hidden="true"></i>
               <span>Log out</span>

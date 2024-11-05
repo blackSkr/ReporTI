@@ -30,6 +30,10 @@
           </span>
         </button>
         <ul class="users-item-dropdown nav-user-dropdown dropdown">
+        <li><a href="./dosen_akun.php">
+              <i data-feather="user" aria-hidden="true"></i>
+              <span>Akun</span>
+            </a></li>
           <li><a class="danger" href="../actiondosen/dosen-proses-logout.php">
               <i data-feather="log-out" aria-hidden="true"></i>
               <span>Log out</span>
