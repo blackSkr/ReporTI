@@ -71,7 +71,63 @@ include './connection/koneksi.php';
     }
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Pastikan SweetAlert sudah dimuat -->
+<script>
+  // Cek jika ada parameter query string
+  const urlParamslogin = new URLSearchParams(window.location.search);
+  if (urlParamslogin.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'gagal') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Username Atau Password Salah',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.location.search = '';
+        // location.reload();  
+      });
+    }
+  }
+</script>
 
+<!-- script berhasil resest pw -->
+ <script>
+  const urlParamsreset = new URLSearchParams(window.location.search);
+  if (urlParamsreset.has('message')) {
+    const message = urlParams.get('message');
+    if (message ==='berhasil-reset-password') {
+      Swal.fire({
+        icon:'success',
+        title: 'Password Berhasil Diubah!',
+        confirmButtonText: 'OK'
+      });then(() => {
+        window.location.search = '';
+        // location.reload();  
+      });
+    }
+  }
+  
+  
+</script>
+<!-- script berhasil resest pw -->
+<!-- script gagal reset pw -->
+ <script>
+  const urlParamsresetgagal = new URLSearchParams(window.location.search);
+  if (urlParamsresetgagal.has('message')) {
+    const message = urlParams.get('message');
+    if (message ==='gagal-reset-password') {
+      Swal.fire({
+        icon:'error',
+        title: 'Gagal Mereset Password!',
+        confirmButtonText: 'OK'
+      });then(() => {
+        window.location.search = '';
+        // location.reload();  
+      });
+    }
+  }
+ </script>
+<!-- script gagal reset pw -->
 
 </body>
 

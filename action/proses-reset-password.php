@@ -38,14 +38,17 @@ if (isset($_POST['submit'])) {
 
     // Eksekusi statement
     if (mysqli_stmt_execute($stmt)) {
-        echo "<script>
-                alert('Password berhasil direset! Silakan login dengan password baru.');
-                window.location.href = '../index.php'; // Redirect ke halaman login
-              </script>";
+        header("Location: ../index.php?message=berhasil-reset-password");
+        // echo "<script>
+        //         alert('Password berhasil direset! Silakan login dengan password baru.');
+        //         window.location.href = '../index.php'; // Redirect ke halaman login
+        //       </script>";
     } else {
-        echo "<script>
-                alert('Gagal! Terjadi kesalahan saat mereset password.');
-              </script>";
+        header("Location: ../index.php?message=gagal-reset-password");
+
+        // echo "<script>
+        //         alert('Gagal! Terjadi kesalahan saat mereset password.');
+        //       </script>";
     }
 
     // Tutup statement

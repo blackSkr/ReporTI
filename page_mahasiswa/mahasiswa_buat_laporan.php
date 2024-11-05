@@ -164,7 +164,41 @@ if (!isset($_SESSION['user_mhs'])) {
     updateClock();
 </script>
 <!-- script jam -->
+ <!-- script sukses -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Pastikan SweetAlert sudah dimuat -->
+<script>
+  // Cek jika ada parameter query string
+  const urlParamslogin = new URLSearchParams(window.location.search);
+  if (urlParamslogin.has('message')) {
+    const message = urlParamslogin.get('message'); // Menggunakan urlParamslogin
+    if (message === 'berhasil') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil Submit !',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Menghapus parameter query string dan reload halaman
+        window.location.search = ''; // Menghapus parameter query
+      });
+    }
+  }
+</script>
 
+<script>
+  // Cek jika ada parameter query string
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'tahunkosong') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal Submit Laporan!',
+        // text: 'Silahkan login menggunakan NIM dan Password Anda.',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+</script>
 <!-- Chart library -->
 <script src="../plugins/chart.min.js"></script>
 <!-- Icons library -->

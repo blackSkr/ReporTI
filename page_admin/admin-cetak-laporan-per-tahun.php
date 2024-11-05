@@ -12,7 +12,7 @@ $tahun = $_GET['year'] ?? '';
 
 // Validasi input
 if (empty($tahun)) {
-    die('Tahun harus dipilih.');
+    header("Location: ../page_admin/admin-laporan-cetak.php?message=tahunkosong");
 }
 
 // Menghitung tanggal mulai dan akhir berdasarkan tahun
@@ -35,29 +35,37 @@ $html .= "<table border='1' cellpadding='5' cellspacing='0'>
                     <th>Jenis Laporan</th>
                     <th>Deskripsi Laporan</th>
                     <th>Pembuat Laporan</th>
-                    <th>Dokumentasi Laporan</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Selesai</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>";
+                    // <th>Dokumentasi Laporan</th>
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Jika 'dokumentasi' berisi link, tambahkan elemen <a>
-        $dokumentasiLink = "<a href='{$row['dokumentasi']}' target='_blank'>Lihat Dokumentasi</a>";
+        // Mendapatkan path absolut dari dokumentasi
+        $dokumentasiPath = realpath("../doc_laporan/" . $row['dokumentasi']);
+        
+        // Cek apakah file dokumentasi ada dan tampilkan gambar
+        if ($dokumentasiPath && file_exists($dokumentasiPath)) {
+            $dokumentasiPreview = "<img src='file://$dokumentasiPath' alt='Dokumentasi' width='100' height='100'>";
+        } else {
+            $dokumentasiPreview = "Dokumentasi tidak tersedia";
+        }
         
         $html .= "<tr>
                     <td>{$row['id_laporan']}</td>
                     <td>{$row['jenis_laporan']}</td>
                     <td>{$row['deskripsi_laporan']}</td>
                     <td>{$row['tipe_pengguna']}</td>
-                    <td>$dokumentasiLink</td>
                     <td>{$row['tanggal_dibuat']}</td>
                     <td>{$row['tanggal_selesai']}</td>
                     <td>{$row['status']}</td>
                   </tr>";
+                                      // <td>$dokumentasiPreview</td>
+
     }
 } else {
     $html .= "<tr><td colspan='8'>Tidak ada laporan ditemukan untuk tahun tersebut.</td></tr>";
@@ -75,3 +83,17 @@ $dompdf->stream("laporan_tahun.pdf", ["Attachment" => true]);
 $stmt->close();
 $koneksi->close();
 ?>
+<script>
+  // Cek jika ada parameter query string
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'tahunkosong') {
+      Swal.fire({
+        icon: 'failed',
+        title: 'Silahkan Pilih Tahunnya Ya!',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+</script>

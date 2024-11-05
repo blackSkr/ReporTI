@@ -2,21 +2,22 @@
 include '../connection/koneksi.php'; // Koneksi ke database
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
+    $username = $_POST['username']; // NIM atau NIDN
+    $email = $_POST['email']; // Email
 
-    // Query untuk mencari di tabel mahasiswa dan dosen
-    $queryMahasiswa = "SELECT * FROM tb_mahasiswa WHERE nim = ?";
-    $queryDosen = "SELECT * FROM tb_dosen WHERE nidn = ?";
+    // Query untuk mencari di tabel mahasiswa dan dosen berdasarkan NIM/NIDN dan email
+    $queryMahasiswa = "SELECT * FROM tb_mahasiswa WHERE nim = ? AND email = ?";
+    $queryDosen = "SELECT * FROM tb_dosen WHERE nidn = ? AND email = ?";
 
     // Siapkan statement untuk tabel mahasiswa
     $stmtMahasiswa = mysqli_prepare($koneksi, $queryMahasiswa);
-    mysqli_stmt_bind_param($stmtMahasiswa, "s", $username);
+    mysqli_stmt_bind_param($stmtMahasiswa, "ss", $username, $email);
     mysqli_stmt_execute($stmtMahasiswa);
     $resultMahasiswa = mysqli_stmt_get_result($stmtMahasiswa);
 
     // Siapkan statement untuk tabel dosen
     $stmtDosen = mysqli_prepare($koneksi, $queryDosen);
-    mysqli_stmt_bind_param($stmtDosen, "s", $username);
+    mysqli_stmt_bind_param($stmtDosen, "ss", $username, $email);
     mysqli_stmt_execute($stmtDosen);
     $resultDosen = mysqli_stmt_get_result($stmtDosen);
 
@@ -38,10 +39,18 @@ if (isset($_POST['submit'])) {
         exit();
     } else {
         // Jika tidak ditemukan
-        echo "<script>
-                alert('Akun tidak ditemukan');
-                window.location.href = '../index.php';
-              </script>";
+        header("Location: ./page-lupa-password.php?message=cari-password-gagal");
+        // echo "<script>
+        //         alert('Akun tidak ditemukan. Pastikan NIM/NIDN dan email yang dimasukkan benar.');
+        //         window.location.href = '../index.php'; // Redirect ke halaman login
+        //       </script>";
     }
+
+    // Tutup statement setelah digunakan
+    mysqli_stmt_close($stmtMahasiswa);
+    mysqli_stmt_close($stmtDosen);
 }
+
+// Tutup koneksi
+mysqli_close($koneksi);
 ?>

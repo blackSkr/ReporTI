@@ -36,9 +36,13 @@ include '../connection/koneksi.php';
             <p class="form-label">NIM / NIDN</p>
             <input class="form-input" type="text" name="username" placeholder="Masukkan NIM / NIDN" required autocomplete="none">
         </label>
+        <label class="form-label-wrapper">
+            <p class="form-label">Email</p>
+            <input class="form-input" type="email" name="email" placeholder="Masukkan Email" required autocomplete="none">
+        </label>
         <br>
         <button class="form-btn primary-default-btn transparent-btn" type="submit" name="submit">Cari</button>
-        </form>
+      </form>
 
     </article>
   </main>
@@ -49,7 +53,23 @@ include '../connection/koneksi.php';
   <!-- Custom scripts -->
   <script src="../js/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <!-- script gagal cari akun -->
+  <script>
+  // Cek jika ada parameter query string
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'cari-password-gagal') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Akun Tidak Ditemukan!',
+        // text: 'Silahkan login menggunakan NIM dan Password Anda.',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+</script>
+<!-- script gagal cari akun -->
 
 
 </body>

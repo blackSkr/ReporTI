@@ -1,13 +1,17 @@
 <div class="main-wrapper">
     <!-- ! Main nav -->
-    <nav class="main-nav--bg">
+    <nav class="main-nav--bg">   
   <div class="container main-nav">
+     <!-- <?php
+        include'admin-cari-laporan.php';
+        ?> -->
     <div class="main-nav-start">
       <div class="search-wrapper">
         <!-- <i data-feather="search" aria-hidden="true"></i> -->
         <!-- <input type="text" placeholder="Enter keywords ..." required> -->
       </div>
     </div>
+
     <div class="main-nav-end">
       <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
         <span class="sr-only">Toggle menu</span>
@@ -39,3 +43,23 @@
     </div>
   </div>
 </nav>
+
+<script>
+    function searchKeyword(event) {
+        event.preventDefault(); // Mencegah pengiriman form
+        const keyword = document.getElementById('keyword').value;
+        
+        if (keyword.length > 0) {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('result').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "../acion-admin/admin-proses-cari-laporan.php?cari-laporan=" + encodeURIComponent(keyword), true);
+            xhr.send();
+        } else {
+            document.getElementById('result').innerHTML = "";
+        }
+    }
+</script>
