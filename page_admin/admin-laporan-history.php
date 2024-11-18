@@ -116,7 +116,7 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
                     </ul>
                 </li>
                 <li>
-                    <a class="active" href="./admin-laporan-cetak.php"><span class="icon document" aria-hidden="true"></span>Cetak Laporan</a>
+                    <a  href="./admin-laporan-cetak.php"><span class="icon document" aria-hidden="true"></span>Cetak Laporan</a>
                 </li>
             </ul>
         </div>

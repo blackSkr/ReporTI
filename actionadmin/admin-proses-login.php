@@ -32,11 +32,11 @@ if (isset($_POST['Login'])) {
             exit();
         } else {
             // Password salah
-            echo "<script>alert('Login gagal: Password salah!'); window.location.href='admin.php';</script>";
+            echo "<script>alert('Login gagal: Password salah!'); window.location.href='../page_admin/index.php';</script>";
         }
     } else {
         // Jika noadmin tidak ditemukan
-        echo "<script>alert('Login gagal: Username tidak ditemukan!'); window.location.href='admin.php';</script>";
+        echo "<script>alert('Login gagal: Username tidak ditemukan!'); window.location.href='../page_admin/index.php';</script>";
     }
 
     // Menutup statement

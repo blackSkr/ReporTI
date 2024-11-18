@@ -11,6 +11,10 @@ if (!isset($_SESSION['noadmin'])) {
 }
 include '../connection/koneksi.php';
 $noadmin = $_SESSION['noadmin'];
+// Query paginasi
+$limit = 10; // Jumlah data per halaman
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Halaman saat ini
+$start_index = ($page - 1) * $limit; // Indeks awal data
 
 // Query untuk mengambil data laporan
 $sql = "SELECT * FROM laporan WHERE status = 'pending' || status = 'on progress' ORDER BY status ASC";
@@ -215,6 +219,7 @@ $total_bulan_ini = $row_bulan_ini['total_bulan_ini'];
           </div>
       </div>
         <!-- Tampil data -->
+         
         <?php
         include 'admin-tampil-data.php';
         ?>
@@ -297,6 +302,9 @@ window.onclick = function(event) {
         title: 'Registrasi Berhasil!',
         // text: 'Silahkan login menggunakan NIM dan Password Anda.',
         confirmButtonText: 'OK'
+      }). then(() => {
+        // Menghapus parameter query string dan reload halaman
+        window.location.search = ''; // Menghapus parameter query
       });
     }
   }
