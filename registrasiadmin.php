@@ -31,7 +31,7 @@ include './connection/koneksi.php';
     <p class="sign-up__subtitle">Silahkan Registrasi Menggunakan </p>
     <form class="sign-up-form form" action="./action/proses-regis-admin.php" method="POST">
       <label class="form-label-wrapper">
-        <p class="form-label">NIDN </p>
+        <p class="form-label">NIP </p>
         <input class="form-input" type="text" name="nip" placeholder="Masukkan NIP" required  autocomplete="none">
       </label>
       <label class="form-label-wrapper">
@@ -47,7 +47,7 @@ include './connection/koneksi.php';
         <input class="form-input" type="password" name="password" placeholder="Masukkan Password" required autocomplete="none">
       </label>
       <label for="Registrasi">
-        <p class="form-label"><a href="index.php">Login Disini</a></p>
+        <p class="form-label"><a href="./page_admin/index.php">Login Disini</a></p>
       </label>
       <!-- <a class="link-info forget-link" href="##">Forgot your password?</a> -->
       <!-- <label class="form-checkbox-wrapper">

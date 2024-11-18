@@ -39,7 +39,7 @@ $totalLaporanDipenuhi = $dataJumlahLaporanDipenuhi['total'];
   <title>Report Page Teknologi Informasi</title>
   <!-- Favicon -->
   <!-- <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon"> -->
-  <link rel="shortcut icon" href="./img/Logo_Polnes_2015-sekarang.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../img/Logo_Polnes_2015-sekarang.png" type="image/x-icon">
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="../css/style.min.css">
