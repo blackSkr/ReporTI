@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `laporan` (
   `tanggal_selesai` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_laporan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
---
+
 -- Dumping data for table db_report.laporan: ~30 rows (approximately)
 REPLACE INTO `laporan` (`id_laporan`, `jenis_laporan`, `nama_laporan`, `deskripsi_laporan`, `dokumentasi`, `nim`, `nidn`, `tipe_pengguna`, `status`, `tanggal_dibuat`, `tanggal_selesai`) VALUES
 	(62, 'Kinerja Dosen', 'Dosen tidak ada kabar, menghilang', 'dosen atas nama bapak A tidak ada hadir dalam pembelajaran pada hari Senin, 00 00 0000 tanpa kabar', 'LOGOTIBewarna.png', '236152039', NULL, 'mahasiswa', 'pending', '2024-11-18 06:19:02', NULL);
