@@ -24,7 +24,7 @@ if (isset($_POST['registrasi'])) {
     if (mysqli_stmt_num_rows($check_stmt) > 0) {
         echo "<script>
             alert('NIDN sudah terdaftar. Silakan gunakan NIDN lain.');
-            window.location.href = '../page_admin/index.php'; // Atau halaman yang sesuai
+            window.location.href = '../registrasidosen.php'; // Atau halaman yang sesuai
         </script>";
         exit();
     }
