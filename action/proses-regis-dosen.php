@@ -39,7 +39,7 @@ if (isset($_POST['registrasi'])) {
     // Menjalankan query
     if (mysqli_stmt_execute($stmt)) {
         // Jika berhasil, redirect ke halaman login dengan parameter notifikasi
-        header("Location: ../page_admin/index.php?message=registrasi_berhasil");
+        header("Location: ../index.php?message=registrasi_berhasil");
         exit();
     } else {
         // Jika gagal, menampilkan pesan kesalahan
