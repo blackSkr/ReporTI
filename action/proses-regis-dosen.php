@@ -28,6 +28,8 @@ if (isset($_POST['registrasi'])) {
         </script>";
         exit();
     }
+
+    
     // Menyiapkan query untuk memasukkan data
     $query = "INSERT INTO tb_dosen (nidn, nama, email, password) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($koneksi, $query);
