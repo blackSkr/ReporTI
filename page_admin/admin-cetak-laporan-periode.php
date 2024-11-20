@@ -17,7 +17,7 @@ $start_date = $_GET['start_date'];
 $end_date = $_GET['end_date'];
 
 // Ambil data laporan berdasarkan periode
-$sql = "SELECT * FROM laporan WHERE status = 'done' AND tanggal_dibuat BETWEEN ? AND ?";
+$sql = "SELECT * FROM laporan WHERE status = 'done' || status = 'pending' || status= 'on progress' AND tanggal_dibuat BETWEEN ? AND ?";
 $stmt = $koneksi->prepare($sql);
 $stmt->bind_param("ss", $start_date, $end_date);
 $stmt->execute();
