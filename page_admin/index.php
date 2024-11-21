@@ -309,6 +309,24 @@ window.onclick = function(event) {
     }
   }
 </script>
+<script>
+  // Cek jika ada parameter query string
+  const urlParamsRegis = new URLSearchParams(window.location.search);
+  if (urlParamsRegis.has('message')) {
+    const message = urlParams.get('message');
+    if (message === 'registrasi_gagal') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registrasi Gagal, Nidn sudah tercatat!',
+        // text: 'Silahkan login menggunakan NIM dan Password Anda.',
+        confirmButtonText: 'OK'
+      }). then(() => {
+        // Menghapus parameter query string dan reload halaman
+        window.location.search = ''; // Menghapus parameter query
+      });
+    }
+  }
+</script>
 
 <!-- script gambar 100% -->
 <script>
