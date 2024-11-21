@@ -22,6 +22,8 @@ if (isset($_POST['registrasi'])) {
 
     // Jika NIDN sudah ada, tampilkan pesan error
     if (mysqli_stmt_num_rows($check_stmt) > 0) {
+        header("Location: ../page_admin/index.php?message=registrasi_gagal");
+
         echo "<script>
             alert('NIDN sudah terdaftar. Silakan gunakan NIDN lain.');
             window.location.href = '../registrasidosen.php'; // Atau halaman yang sesuai
@@ -40,7 +42,7 @@ if (isset($_POST['registrasi'])) {
     // Menjalankan query
     if (mysqli_stmt_execute($stmt)) {
         // Jika berhasil, redirect ke halaman login dengan parameter notifikasi
-        header("Location: ../index.php?message=registrasi_berhasil");
+        header("Location: ../page_admin/index.php?message=registrasi_berhasil");
         exit();
     } else {
         // Jika gagal, menampilkan pesan kesalahan
